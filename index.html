@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<!-- ===================== SEO ===================== -->
+<title>Escola Segura — Pais, Filhos e Escola | Cleiton Xavier</title>
+<meta name="description" content="Livro do investigador Cleiton Xavier (Polícia Civil-MG) sobre segurança infantil, relação família–escola e prevenção. Disponível em PDF, livro físico ou combo." />
+<meta name="author" content="Cleiton Xavier" />
+<meta name="robots" content="index, follow" />
+<meta name="theme-color" content="#0a0e1a" />
+<link rel="canonical" href="https://seudominio.com.br/" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Escola Segura — Pais, Filhos e Escola" />
+<meta property="og:description" content="Segurança e cuidado para crianças e adolescentes. Por Cleiton Xavier, investigador da Polícia Civil-MG." />
+<meta property="og:image" content="og-cover.jpg" />
+<meta property="og:locale" content="pt_BR" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Escola Segura — Pais, Filhos e Escola" />
+<meta name="twitter:image" content="og-cover.jpg" />
+
+<!-- ===================== Preconnect / fontes ===================== -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="preconnect" href="https://cdnjs.cloudflare.com" />
+<link rel="preconnect" href="https://unpkg.com" />
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
+<!-- TailwindCSS via CDN (para produção definitiva: compilar com Tailwind CLI/PostCSS p/ Lighthouse >95) -->
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = { theme: { extend: {
+    colors:{ink:'#0a0e1a',ink2:'#0f1626',brand:'#1e90ff',brand2:'#3ba8ff',gold:'#ff7a18'},
+    fontFamily:{display:['"Archivo Black"','system-ui','sans-serif'],sans:['Inter','system-ui','sans-serif']},
+  }}};
+</script>
+
+<!-- GSAP + ScrollTrigger -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+
+<!-- ===================== Schema.org completo ===================== -->
+<script type="application/ld+json">
+{ "@context":"https://schema.org","@graph":[
+  { "@type":"Organization","@id":"https://seudominio.com.br/#org","name":"Escola Segura","url":"https://seudominio.com.br/","logo":"https://seudominio.com.br/og-cover.jpg","sameAs":["https://instagram.com/cleitonxavierpc"] },
+  { "@type":"Person","@id":"https://seudominio.com.br/#autor","name":"Cleiton Xavier","jobTitle":"Investigador da Polícia Civil-MG","description":"Formado em Direito, pós-graduado em Segurança Pública. Referência na defesa dos direitos de crianças e adolescentes.","sameAs":["https://instagram.com/cleitonxavierpc"] },
+  { "@type":"Book","@id":"https://seudominio.com.br/#livro","name":"Escola Segura — Pais, Filhos e Escola: A Verdade Que Ninguém Quer Ouvir","author":{"@id":"https://seudominio.com.br/#autor"},"inLanguage":"pt-BR","publisher":{"@id":"https://seudominio.com.br/#org"},
+    "offers":[
+      {"@type":"Offer","name":"Ebook PDF","price":"49.90","priceCurrency":"BRL","availability":"https://schema.org/InStock"},
+      {"@type":"Offer","name":"Livro Físico","price":"59.90","priceCurrency":"BRL","availability":"https://schema.org/InStock"},
+      {"@type":"Offer","name":"Combo (Físico + PDF)","price":"69.90","priceCurrency":"BRL","availability":"https://schema.org/InStock"}
+    ] },
+  { "@type":"BreadcrumbList","itemListElement":[
+      {"@type":"ListItem","position":1,"name":"Início","item":"https://seudominio.com.br/"},
+      {"@type":"ListItem","position":2,"name":"Comprar","item":"https://seudominio.com.br/#produtos"}
+  ]},
+  { "@type":"FAQPage","mainEntity":[
+      {"@type":"Question","name":"Qual a diferença entre PDF, físico e combo?","acceptedAnswer":{"@type":"Answer","text":"O PDF é digital e chega na hora. O físico é o livro impresso enviado para seu endereço. O combo inclui os dois."}},
+      {"@type":"Question","name":"Como recebo o PDF?","acceptedAnswer":{"@type":"Answer","text":"Após a confirmação do pagamento, o acesso é liberado automaticamente por e-mail."}},
+      {"@type":"Question","name":"Quanto custa e quanto demora o frete?","acceptedAnswer":{"@type":"Answer","text":"O valor e o prazo aparecem ao informar seu CEP, com as opções de transportadora (PAC, SEDEX, Jadlog)."}},
+      {"@type":"Question","name":"E se eu não gostar?","acceptedAnswer":{"@type":"Answer","text":"Há 7 dias de garantia para solicitar o reembolso, conforme o Código de Defesa do Consumidor."}},
+      {"@type":"Question","name":"Como acompanho meu pedido?","acceptedAnswer":{"@type":"Answer","text":"Em Acompanhar pedido, informando e-mail e número do pedido, você vê o status, a transportadora e o código de rastreio. Sem cadastro."}}
+  ]}
+]}
+</script>
+
+<style>
+  html{scroll-behavior:smooth}
+  body{background:#0a0e1a}
+  .bg-glow{background:radial-gradient(60% 50% at 80% 0%,rgba(30,144,255,.18),transparent 60%),radial-gradient(50% 40% at 0% 30%,rgba(255,122,24,.10),transparent 60%),#0a0e1a}
+  .glass{background:rgba(255,255,255,.05);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.10)}
+  .glass-strong{background:rgba(15,22,38,.65);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid rgba(30,144,255,.25)}
+  .text-gradient{background:linear-gradient(90deg,#3ba8ff,#1e90ff 45%,#fff);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .btn-cta{background:linear-gradient(90deg,#1e90ff,#3ba8ff);box-shadow:0 10px 30px -8px rgba(30,144,255,.7),inset 0 1px 0 rgba(255,255,255,.4);transition:transform .2s,box-shadow .2s,filter .2s}
+  .btn-cta:hover{transform:translateY(-2px) scale(1.02);filter:brightness(1.08)}
+  .btn-ghost{border:1px solid rgba(255,255,255,.18);transition:background .2s,border-color .2s}
+  .btn-ghost:hover{background:rgba(255,255,255,.06);border-color:rgba(30,144,255,.5)}
+  .seal{background:radial-gradient(circle at 50% 35%,#ff9a3c,#ff7a18 60%,#c14a00);box-shadow:0 0 0 6px rgba(255,122,24,.15),0 20px 40px -12px rgba(255,122,24,.6)}
+  .acc-body{max-height:0;overflow:hidden;transition:max-height .4s ease}
+  .art-ph{position:relative;border-radius:14px;overflow:hidden;background:linear-gradient(135deg,#10203a,#0a0e1a 60%);border:1px solid rgba(30,144,255,.25);display:flex;align-items:center;justify-content:center;text-align:center}
+  .art-ph::after{content:"";position:absolute;inset:0;background:radial-gradient(40% 30% at 30% 20%,rgba(30,144,255,.25),transparent 70%)}
+  .art-ph .tag{position:absolute;bottom:10px;left:0;right:0;font-size:10px;letter-spacing:.08em;color:rgba(255,255,255,.4)}
+  #produtos .spotlight{background:radial-gradient(240px 240px at var(--mx,50%) var(--my,0%),rgba(30,144,255,.16),transparent 70%);transition:background .08s}
+  .product-card{cursor:pointer}
+  canvas{display:block}
+  [data-anim]{will-change:opacity,transform}
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+
+<body class="bg-glow text-white font-sans antialiased selection:bg-brand/40">
+
+<!-- ===================== HEADER ===================== -->
+<header class="fixed top-0 inset-x-0 z-50 glass">
+  <div class="max-w-6xl mx-auto px-5 h-16 flex items-center justify-between">
+    <span class="font-display text-lg tracking-tight">ESCOLA <span class="text-brand">SEGURA</span></span>
+    <nav class="flex items-center gap-4">
+      <a href="#acompanhar" class="text-sm text-white/70 hover:text-white hidden sm:inline">Acompanhar pedido</a>
+      <a href="#produtos" class="btn-cta text-sm font-bold px-5 py-2.5 rounded-full">Comprar</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ===================== 1) HERO + 3D ===================== -->
+<section class="relative pt-28 pb-16 sm:pt-32 sm:pb-24 overflow-hidden">
+  <div class="max-w-6xl mx-auto px-5 grid lg:grid-cols-2 gap-10 items-center">
+    <div data-anim="fade-up">
+      <span class="glass inline-flex items-center gap-2 text-xs font-semibold px-3 py-1.5 rounded-full text-brand2 mb-6">🛡️ Por Cleiton Xavier · Investigador da Polícia Civil-MG</span>
+      <h1 class="font-display text-3xl sm:text-5xl lg:text-6xl leading-[1.08] mb-5">O guia prático para um ambiente <span class="text-gradient">mais seguro</span> para as crianças.</h1>
+      <p class="text-white/70 text-lg leading-relaxed mb-8 max-w-xl">Disponível em <strong class="text-white">PDF</strong>, <strong class="text-white">livro físico</strong> ou <strong class="text-white">combo</strong>. Orientações claras sobre segurança infantil, relação família–escola e prevenção.</p>
+      <div class="flex flex-wrap gap-3">
+        <a href="#produtos" class="btn-cta inline-flex items-center gap-2 text-lg font-extrabold px-8 py-4 rounded-full">👉 Ver opções de compra</a>
+        <a href="#conteudo" class="btn-ghost inline-flex items-center text-base font-semibold px-6 py-4 rounded-full">O que tem dentro</a>
+      </div>
+      <div class="flex flex-wrap items-center gap-x-5 gap-y-2 mt-7 text-sm text-white/60"><span>✅ PDF imediato</span><span>📦 Livro físico</span><span>🔁 Garantia de 7 dias</span></div>
+    </div>
+    <div data-anim="fade-up" class="relative flex justify-center items-center min-h-[360px] sm:min-h-[480px]" id="book-stage">
+      <div class="absolute inset-0 rounded-3xl blur-3xl opacity-40" style="background:radial-gradient(circle at 60% 40%,#1e90ff,transparent 70%)"></div>
+      <!-- Capa do livro (mockup). Troque "Livro Capa.png" se mudar a arte. -->
+      <img id="book-cover" src="Livro Capa.png" alt="Livro Escola Segura — Pais, Filhos e Escola, de Cleiton Xavier"
+           class="relative w-[78%] max-w-[420px] select-none pointer-events-none"
+           style="filter:drop-shadow(-18px 30px 50px rgba(0,0,0,.7));will-change:transform" />
+    </div>
+  </div>
+</section>
+
+<!-- ===================== AUTOR ===================== -->
+<section class="py-20">
+  <div class="max-w-5xl mx-auto px-5">
+    <div class="glass-strong rounded-3xl p-8 sm:p-12 grid md:grid-cols-[200px_1fr] gap-10 items-center" data-anim="fade-up">
+      <!-- RETRATO: salve a foto do investigador como "autor.jpg" nesta pasta -->
+      <div class="flex justify-center">
+        <img src="autor.jpg" alt="Cleiton Xavier, investigador da Polícia Civil-MG" loading="lazy" decoding="async"
+             class="w-full max-w-[190px] object-cover object-top rounded-2xl ring-1 ring-white/15" style="aspect-ratio:3/4;box-shadow:0 18px 40px -16px rgba(0,0,0,.8)"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
+        <div class="art-ph w-full max-w-[190px] hidden" style="aspect-ratio:3/4"><span class="text-white/50 text-xs px-4">[ salve a foto do autor como <b>autor.jpg</b> ]</span></div>
+      </div>
+      <div>
+        <span class="text-gold font-bold text-sm uppercase tracking-widest">Quem escreveu</span>
+        <h2 class="font-display text-2xl sm:text-3xl mt-2 mb-4">Cleiton Xavier</h2>
+        <p class="text-white/70 leading-relaxed mb-5">Investigador da Polícia Civil de Minas Gerais, lotado no Departamento de Operações Especiais (DEOESP). Formado em Direito e pós-graduado em Segurança Pública, é referência na defesa dos direitos das crianças e adolescentes de Belo Horizonte. Casado e pai de dois filhos, transformou sua vivência prática em um material claro e acessível.</p>
+        <div class="flex flex-wrap gap-x-8 gap-y-4 text-sm">
+          <div><span class="font-display text-xl text-brand block">Polícia Civil-MG</span><span class="text-white/50">Investigador (DEOESP)</span></div>
+          <div><span class="font-display text-xl text-brand block">Direito + Pós</span><span class="text-white/50">em Segurança Pública</span></div>
+          <div><span class="font-display text-xl text-brand block">Causa</span><span class="text-white/50">proteção de crianças e adolescentes</span></div>
+        </div>
+        <p class="text-white/30 text-xs mt-4">Instagram: @cleitonxavierpc</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== BENEFÍCIOS ===================== -->
+<section class="py-20 bg-ink2/60">
+  <div class="max-w-6xl mx-auto px-5">
+    <div class="text-center mb-14" data-anim="fade-up"><h2 class="font-display text-3xl sm:text-4xl mb-3">O que você ganha ao ler</h2><p class="text-white/60">Resultados práticos, da primeira à última página.</p></div>
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6" data-stagger>
+      <div class="glass rounded-2xl p-7"><div class="seal w-12 h-12 rounded-xl flex items-center justify-center text-xl mb-4">😌</div><h3 class="font-bold text-lg mb-2">Entender comportamentos</h3><p class="text-white/60 text-sm">Interprete mudanças no dia a dia com clareza, não com insegurança.</p></div>
+      <div class="glass rounded-2xl p-7"><div class="seal w-12 h-12 rounded-xl flex items-center justify-center text-xl mb-4">💬</div><h3 class="font-bold text-lg mb-2">Conversar com leveza</h3><p class="text-white/60 text-sm">Crie abertura para que a criança compartilhe o que vive.</p></div>
+      <div class="glass rounded-2xl p-7"><div class="seal w-12 h-12 rounded-xl flex items-center justify-center text-xl mb-4">🏫</div><h3 class="font-bold text-lg mb-2">Família e escola juntas</h3><p class="text-white/60 text-sm">Atue em parceria com a instituição de forma construtiva.</p></div>
+      <div class="glass rounded-2xl p-7"><div class="seal w-12 h-12 rounded-xl flex items-center justify-center text-xl mb-4">📱</div><h3 class="font-bold text-lg mb-2">Rotina digital saudável</h3><p class="text-white/60 text-sm">Acompanhe telas, jogos e contatos de forma equilibrada.</p></div>
+      <div class="glass rounded-2xl p-7"><div class="seal w-12 h-12 rounded-xl flex items-center justify-center text-xl mb-4">📚</div><h3 class="font-bold text-lg mb-2">Informação confiável</h3><p class="text-white/60 text-sm">Conteúdo organizado, baseado na vivência de quem atua na área.</p></div>
+      <div class="glass rounded-2xl p-7"><div class="seal w-12 h-12 rounded-xl flex items-center justify-center text-xl mb-4">🛡️</div><h3 class="font-bold text-lg mb-2">Prevenção no dia a dia</h3><p class="text-white/60 text-sm">Hábitos simples que constroem um ambiente mais seguro.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CONTEÚDO ===================== -->
+<section id="conteudo" class="py-20">
+  <div class="max-w-3xl mx-auto px-5">
+    <div class="text-center mb-12" data-anim="fade-up"><h2 class="font-display text-3xl sm:text-4xl mb-3">O que você vai encontrar dentro</h2><p class="text-white/60">Clique para expandir. <span class="text-white/40">(Ajuste conforme o sumário real.)</span></p></div>
+    <div class="space-y-3" data-stagger>
+      <div class="glass rounded-xl"><button class="acc-btn w-full flex items-center justify-between gap-4 text-left px-6 py-5 font-semibold"><span><span class="text-brand mr-2">01.</span>A família é a primeira escola</span><span class="acc-ico text-brand transition-transform">＋</span></button><div class="acc-body"><p class="px-6 pb-5 text-white/60 text-sm">Por que o cuidado começa em casa e como assumir esse papel.</p></div></div>
+      <div class="glass rounded-xl"><button class="acc-btn w-full flex items-center justify-between gap-4 text-left px-6 py-5 font-semibold"><span><span class="text-brand mr-2">02.</span>Entendendo comportamentos</span><span class="acc-ico text-brand transition-transform">＋</span></button><div class="acc-body"><p class="px-6 pb-5 text-white/60 text-sm">Mudanças no dia a dia e como interpretá-las com calma.</p></div></div>
+      <div class="glass rounded-xl"><button class="acc-btn w-full flex items-center justify-between gap-4 text-left px-6 py-5 font-semibold"><span><span class="text-brand mr-2">03.</span>Ambiente de confiança</span><span class="acc-ico text-brand transition-transform">＋</span></button><div class="acc-body"><p class="px-6 pb-5 text-white/60 text-sm">Como fortalecer vínculos e reduzir riscos com hábitos simples.</p></div></div>
+      <div class="glass rounded-xl"><button class="acc-btn w-full flex items-center justify-between gap-4 text-left px-6 py-5 font-semibold"><span><span class="text-brand mr-2">04.</span>Segurança no ambiente escolar</span><span class="acc-ico text-brand transition-transform">＋</span></button><div class="acc-body"><p class="px-6 pb-5 text-white/60 text-sm">O que observar e como atuar em conjunto com a escola.</p></div></div>
+      <div class="glass rounded-xl"><button class="acc-btn w-full flex items-center justify-between gap-4 text-left px-6 py-5 font-semibold"><span><span class="text-brand mr-2">05.</span>Comunicação que protege</span><span class="acc-ico text-brand transition-transform">＋</span></button><div class="acc-body"><p class="px-6 pb-5 text-white/60 text-sm">Como criar confiança para a criança contar o que acontece.</p></div></div>
+      <div class="glass rounded-xl"><button class="acc-btn w-full flex items-center justify-between gap-4 text-left px-6 py-5 font-semibold"><span><span class="text-brand mr-2">06.</span>Caminhos corretos e legais</span><span class="acc-ico text-brand transition-transform">＋</span></button><div class="acc-body"><p class="px-6 pb-5 text-white/60 text-sm">Como agir com responsabilidade diante de uma dúvida.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== PARA QUEM É ESTE LIVRO ===================== -->
+<section class="py-20 bg-ink2/60">
+  <div class="max-w-6xl mx-auto px-5">
+    <div class="text-center mb-14" data-anim="fade-up"><span class="text-gold font-bold text-sm uppercase tracking-widest">Indicado para</span><h2 class="font-display text-3xl sm:text-4xl mt-3">Para quem é este livro</h2><p class="text-white/60 mt-2">Se você convive com crianças ou adolescentes, este conteúdo é para você.</p></div>
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6" data-stagger>
+      <div class="glass rounded-2xl p-7 text-center"><div class="text-4xl mb-4">👨‍👩‍👧</div><h3 class="font-bold text-lg mb-2">Pais e mães</h3><p class="text-white/60 text-sm">Que querem proteger sem amedrontar e fortalecer o diálogo em casa.</p></div>
+      <div class="glass rounded-2xl p-7 text-center"><div class="text-4xl mb-4">🍎</div><h3 class="font-bold text-lg mb-2">Educadores</h3><p class="text-white/60 text-sm">Professores e gestores que buscam uma escola mais segura e acolhedora.</p></div>
+      <div class="glass rounded-2xl p-7 text-center"><div class="text-4xl mb-4">👵</div><h3 class="font-bold text-lg mb-2">Avós e responsáveis</h3><p class="text-white/60 text-sm">Quem cuida da criança no dia a dia e quer orientações claras e práticas.</p></div>
+      <div class="glass rounded-2xl p-7 text-center"><div class="text-4xl mb-4">🧑‍⚕️</div><h3 class="font-bold text-lg mb-2">Profissionais</h3><p class="text-white/60 text-sm">Que atuam com infância e adolescência e precisam de uma base confiável.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== PRODUTOS / FRETE / CHECKOUT ===================== -->
+<section id="produtos" class="py-20 relative">
+  <div class="spotlight absolute inset-0 pointer-events-none"></div>
+  <div class="max-w-5xl mx-auto px-5 relative">
+    <div class="text-center mb-12" data-anim="fade-up"><h2 class="font-display text-3xl sm:text-4xl">Escolha como quer receber</h2><p class="text-white/60 mt-2">PDF digital, livro impresso ou os dois com desconto.</p></div>
+
+    <div class="grid sm:grid-cols-3 gap-5 max-w-3xl mx-auto" id="product-cards" data-stagger>
+      <button data-product="pdf" class="product-card glass rounded-2xl p-6 text-left transition"><span class="text-brand2 text-xs font-bold uppercase tracking-widest">Digital</span><h3 class="font-display text-lg mt-1">Ebook PDF</h3><p class="text-white/55 text-sm mt-2 mb-3">Entrega automática.</p><p class="font-display text-2xl">R$ 49<span class="text-base align-top">,90</span></p><p class="text-white/40 text-xs mt-1">sem frete</p></button>
+      <button data-product="fisico" class="product-card glass rounded-2xl p-6 text-left transition"><span class="text-brand2 text-xs font-bold uppercase tracking-widest">Impresso</span><h3 class="font-display text-lg mt-1">Livro Físico</h3><p class="text-white/55 text-sm mt-2 mb-3">Enviado à sua casa.</p><p class="font-display text-2xl">R$ 59<span class="text-base align-top">,90</span></p><p class="text-white/40 text-xs mt-1">+ frete</p></button>
+      <button data-product="combo" class="product-card glass rounded-2xl p-6 text-left transition relative"><span class="absolute -top-3 left-1/2 -translate-x-1/2 bg-gold text-ink text-[10px] font-bold px-2 py-0.5 rounded-full whitespace-nowrap">MAIS ESCOLHIDO</span><span class="text-brand2 text-xs font-bold uppercase tracking-widest">Combo</span><h3 class="font-display text-lg mt-1">Físico + PDF</h3><p class="text-white/55 text-sm mt-2 mb-3">Leve os dois por +R$10.</p><p class="font-display text-2xl">R$ 69<span class="text-base align-top">,90</span></p><p class="text-white/40 text-xs mt-1">+ frete</p></button>
+    </div>
+
+    <div class="glass-strong rounded-3xl p-7 sm:p-10 mt-8" data-anim="fade-up">
+      <div id="shipping-box" class="hidden">
+        <p class="text-white/80 font-semibold mb-3">Calcular frete</p>
+        <div class="flex flex-col sm:flex-row gap-3 mb-4">
+          <input id="cep" inputmode="numeric" maxlength="9" placeholder="Seu CEP (ex: 30110-000)" class="flex-1 bg-white/5 border border-white/15 rounded-xl px-4 py-3 outline-none focus:border-brand" />
+          <button id="calc-frete" class="btn-ghost font-semibold px-6 py-3 rounded-xl">Calcular</button>
+        </div>
+        <div id="frete-result" class="space-y-2 mb-6"></div>
+      </div>
+      <div class="flex items-center justify-between text-white/70 text-sm"><span>Produto (<span id="sum-name">PDF</span>)</span><span id="sum-base">R$ 49,90</span></div>
+      <div id="sum-frete-row" class="hidden items-center justify-between text-white/70 text-sm mt-1"><span>Frete (<span id="sum-carrier">—</span>)</span><span id="sum-frete">R$ 0,00</span></div>
+      <div class="flex items-center justify-between font-bold text-xl mt-3 pt-3 border-t border-white/10"><span>Total</span><span id="sum-total" class="text-gradient font-display text-2xl">R$ 49,90</span></div>
+      <p class="text-white/50 text-sm mt-2">Pagamento único. Sem mensalidades.</p>
+      <button id="checkout-btn" class="btn-cta block w-full text-lg font-extrabold px-8 py-5 rounded-full mt-6">👉 Quero Acessar o Material</button>
+      <p class="text-white/40 text-xs mt-3 text-center">PDF via Kirvano (entrega automática) • Físico/kits via checkout próprio (CEP + endereço)</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== GARANTIA ===================== -->
+<section class="py-20 bg-ink2/60">
+  <div class="max-w-4xl mx-auto px-5">
+    <div class="glass-strong rounded-3xl p-10 sm:p-14 flex flex-col sm:flex-row items-center gap-10" data-anim="fade-up">
+      <div class="seal w-36 h-36 rounded-full flex flex-col items-center justify-center text-center shrink-0"><span class="font-display text-4xl leading-none">7</span><span class="text-xs font-bold uppercase tracking-wide">dias de<br>garantia</span></div>
+      <div class="text-center sm:text-left"><h2 class="font-display text-2xl sm:text-3xl mb-3">Garantia de 7 dias</h2><p class="text-white/70 leading-relaxed">Conforme o Código de Defesa do Consumidor para produtos comercializados online. Caso o conteúdo não atenda às suas expectativas, o reembolso poderá ser solicitado dentro do prazo.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== ACOMPANHAR PEDIDO (sem login) ===================== -->
+<section id="acompanhar" class="py-20">
+  <div class="max-w-2xl mx-auto px-5">
+    <div class="text-center mb-10" data-anim="fade-up"><span class="text-gold font-bold text-sm uppercase tracking-widest">Acompanhe</span><h2 class="font-display text-3xl sm:text-4xl mt-3">Acompanhar pedido</h2><p class="text-white/60 mt-2">Sem cadastro. Informe e-mail e número do pedido.</p></div>
+    <div class="glass-strong rounded-3xl p-7 sm:p-10" data-anim="fade-up">
+      <div class="grid sm:grid-cols-2 gap-3 mb-4">
+        <input id="cli-email" type="email" placeholder="E-mail da compra" class="bg-white/5 border border-white/15 rounded-xl px-4 py-3 outline-none focus:border-brand" />
+        <input id="cli-order" inputmode="numeric" placeholder="Número do pedido (ex: 1248)" class="bg-white/5 border border-white/15 rounded-xl px-4 py-3 outline-none focus:border-brand" />
+      </div>
+      <button id="cli-btn" class="btn-cta w-full font-extrabold px-6 py-4 rounded-full">Acompanhar</button>
+      <div id="cli-result" class="mt-6 space-y-3"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CTA FINAL ===================== -->
+<section class="py-24 relative overflow-hidden">
+  <div class="max-w-3xl mx-auto px-5 text-center" data-anim="fade-up">
+    <h2 class="font-display text-3xl sm:text-5xl leading-tight mb-6">Dê às crianças um ambiente <span class="text-gradient">mais seguro</span> — começando hoje.</h2>
+    <p class="text-white/60 text-lg mb-9 max-w-xl mx-auto">PDF, livro físico, combo ou kits. Garantia de 7 dias.</p>
+    <a href="#produtos" class="btn-cta inline-flex items-center gap-2 text-lg font-extrabold px-10 py-5 rounded-full">👉 Ver opções de compra</a>
+  </div>
+</section>
+
+<footer class="border-t border-white/10 py-10">
+  <div class="max-w-6xl mx-auto px-5 text-center text-white/40 text-sm">
+    <p class="font-display text-white text-lg mb-2">ESCOLA <span class="text-brand">SEGURA</span></p>
+    <p>Por Cleiton Xavier — Investigador da Polícia Civil-MG</p>
+    <p class="mt-3">© <span id="year"></span> Todos os direitos reservados. Não substitui orientação profissional especializada.</p>
+  </div>
+</footer>
+
+<a href="#produtos" class="btn-cta fixed bottom-4 inset-x-4 z-40 text-center font-extrabold py-4 rounded-full sm:hidden">👉 Comprar — a partir de R$ 49,90</a>
+
+<!-- ===================== MODAL DE CHECKOUT (físico/combo) ===================== -->
+<div id="checkout-modal" class="fixed inset-0 z-[60] hidden items-center justify-center p-4 bg-black/70 backdrop-blur-sm overflow-y-auto">
+  <div class="glass-strong rounded-3xl p-6 sm:p-8 w-full max-w-lg my-8">
+    <div class="flex items-center justify-between mb-5">
+      <h3 class="font-display text-xl">Dados para entrega</h3>
+      <button id="modal-close" class="text-white/50 hover:text-white text-2xl leading-none">&times;</button>
+    </div>
+    <div class="grid sm:grid-cols-2 gap-3">
+      <input id="ck-name"  placeholder="Nome completo" class="ck-input sm:col-span-2" />
+      <input id="ck-email" type="email" placeholder="E-mail" class="ck-input" />
+      <input id="ck-phone" inputmode="numeric" placeholder="WhatsApp (DDD + número)" class="ck-input" />
+      <input id="ck-cpf"   inputmode="numeric" maxlength="14" placeholder="CPF (etiqueta/nota)" class="ck-input sm:col-span-2" />
+      <input id="ck-cep"   inputmode="numeric" maxlength="9" placeholder="CEP" class="ck-input" />
+      <input id="ck-number" placeholder="Número" class="ck-input" />
+      <input id="ck-street" placeholder="Rua / Logradouro" class="ck-input sm:col-span-2" />
+      <input id="ck-comp"  placeholder="Complemento (opcional)" class="ck-input" />
+      <input id="ck-district" placeholder="Bairro" class="ck-input" />
+      <input id="ck-city"  placeholder="Cidade" class="ck-input" />
+      <input id="ck-state" maxlength="2" placeholder="UF" class="ck-input" />
+    </div>
+    <div class="flex items-center justify-between mt-5 text-sm text-white/70">
+      <span>Total (com frete)</span><span id="ck-total" class="font-display text-xl text-gradient">R$ 0,00</span>
+    </div>
+    <button id="ck-submit" class="btn-cta w-full font-extrabold px-6 py-4 rounded-full mt-4">Ir para o pagamento</button>
+    <p id="ck-msg" class="text-center text-xs mt-3 text-white/40">Pagamento via AbacatePay (Pix/cartão). Você recebe o rastreio por e-mail e WhatsApp.</p>
+  </div>
+</div>
+<style>.ck-input{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.15);border-radius:12px;padding:.7rem 1rem;outline:none;color:#fff;width:100%}.ck-input:focus{border-color:#1e90ff}</style>
+
+<!-- ===================== CONFIG ===================== -->
+<script>
+  /* >>> CHECKOUT <<<
+     PDF  -> Kirvano (entrega automática do PDF)
+     Físico/Combo -> AbacatePay via Edge Function `order` (gera cobrança e devolve payment_url) */
+  const KIRVANO_PDF_URL = "https://pay.kirvano.com/SEU-LINK-PDF";
+
+  /* >>> SUPABASE (pedidos, frete real, acompanhamento) — projeto "Livro" <<< */
+  const SUPABASE_URL = "https://upgawiqxgfvxfjlolqvk.supabase.co";
+  const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVwZ2F3aXF4Z2Z2eGZqbG9scXZrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE1ODgzMDEsImV4cCI6MjA5NzE2NDMwMX0.q0KmVGlQTifmbLKB7gtp2RZ6AUB563OogoKlVaWoUNI";
+  const USE_BACKEND = true; // Edge Functions (frete/order/track) deployadas e ATIVAS
+</script>
+
+<!-- ===================== LÓGICA ===================== -->
+<script>
+const PRODUCTS = {
+  pdf:    {name:"PDF",base:49.90,ship:false,cta:"👉 Quero Acessar o PDF"},
+  fisico: {name:"Livro Físico",base:59.90,ship:true,cta:"👉 Comprar Livro Físico"},
+  combo:  {name:"Combo (Físico + PDF)",base:69.90,ship:true,cta:"👉 Quero o Combo"},
+};
+let state={product:"pdf",shipping:null};
+const brl=v=>"R$ "+v.toFixed(2).replace(".",",");
+
+/* Frete: usa backend real se USE_BACKEND, senão mock */
+async function calculateShipping(cep){
+  const clean=(cep||"").replace(/\D/g,"");
+  if(clean.length!==8) throw new Error("CEP inválido");
+  if(USE_BACKEND){
+    const r=await fetch(`${SUPABASE_URL}/functions/v1/frete`,{method:"POST",
+      headers:{"Content-Type":"application/json","Authorization":`Bearer ${SUPABASE_ANON_KEY}`,"apikey":SUPABASE_ANON_KEY},
+      body:JSON.stringify({cep:clean})});
+    if(!r.ok) throw new Error("Falha ao calcular frete");
+    return r.json();
+  }
+  await new Promise(r=>setTimeout(r,500)); // mock
+  return [{carrier:"PAC (Correios)",price:18.90,days:7},{carrier:"SEDEX (Correios)",price:29.90,days:2},{carrier:"Jadlog",price:21.50,days:5}];
+}
+
+const cards=document.querySelectorAll('.product-card');
+const $=id=>document.getElementById(id);
+const shipBox=$('shipping-box'),freteResult=$('frete-result'),cepInput=$('cep');
+function selectProduct(key){
+  state.product=key;state.shipping=null;
+  cards.forEach(c=>{const on=c.dataset.product===key;c.classList.toggle('ring-2',on);c.classList.toggle('ring-brand',on);c.classList.toggle('glass-strong',on);c.classList.toggle('glass',!on);});
+  const p=PRODUCTS[key];$('sum-name').textContent=p.name;$('sum-base').textContent=brl(p.base);$('checkout-btn').textContent=p.cta;
+  shipBox.classList.toggle('hidden',!p.ship);freteResult.innerHTML="";$('sum-frete-row').classList.add('hidden');$('sum-frete-row').classList.remove('flex');render();
+}
+function render(){const p=PRODUCTS[state.product];let total=p.base;if(state.shipping){total+=state.shipping.price;$('sum-carrier').textContent=state.shipping.carrier;$('sum-frete').textContent=brl(state.shipping.price);$('sum-frete-row').classList.remove('hidden');$('sum-frete-row').classList.add('flex');}$('sum-total').textContent=brl(total);}
+cards.forEach(c=>c.addEventListener('click',()=>selectProduct(c.dataset.product)));
+cepInput?.addEventListener('input',e=>{let v=e.target.value.replace(/\D/g,"").slice(0,8);if(v.length>5)v=v.slice(0,5)+"-"+v.slice(5);e.target.value=v;});
+$('calc-frete')?.addEventListener('click',async()=>{
+  freteResult.innerHTML=`<p class="text-white/50 text-sm">Calculando…</p>`;
+  try{
+    const opts=await calculateShipping(cepInput.value);const best=opts.reduce((a,b)=>a.price<b.price?a:b);
+    freteResult.innerHTML=opts.map(o=>{const badge=o===best?'<span class="text-gold text-xs">• melhor opção</span>':'';return `<button class="frete-opt w-full flex items-center justify-between gap-3 px-4 py-3 rounded-xl border ${o===best?'border-brand bg-brand/10':'border-white/10'} text-left" data-carrier="${o.carrier}" data-price="${o.price}"><span class="text-sm">${o.carrier} ${badge}<br><span class="text-white/50 text-xs">até ${o.days} dia(s) úteis</span></span><span class="font-bold">${brl(o.price)}</span></button>`;}).join("");
+    document.querySelectorAll('.frete-opt').forEach(b=>b.addEventListener('click',()=>{state.shipping={carrier:b.dataset.carrier,price:parseFloat(b.dataset.price)};document.querySelectorAll('.frete-opt').forEach(x=>x.classList.remove('ring-2','ring-brand'));b.classList.add('ring-2','ring-brand');render();}));
+    state.shipping={carrier:best.carrier,price:best.price};render();
+  }catch(err){freteResult.innerHTML=`<p class="text-red-400 text-sm">${err.message}. Verifique o CEP.</p>`;}
+});
+/* Checkout: PDF -> Kirvano | Físico/Combo -> modal -> Edge Function order (AbacatePay) */
+const modal=$('checkout-modal');
+function openModal(){modal.classList.remove('hidden');modal.classList.add('flex');$('ck-total').textContent=$('sum-total').textContent;}
+function closeModal(){modal.classList.add('hidden');modal.classList.remove('flex');}
+$('modal-close')?.addEventListener('click',closeModal);
+modal?.addEventListener('click',e=>{if(e.target===modal)closeModal();});
+$('ck-cpf')?.addEventListener('input',e=>{let v=e.target.value.replace(/\D/g,"").slice(0,11);v=v.replace(/(\d{3})(\d)/,"$1.$2").replace(/(\d{3})(\d)/,"$1.$2").replace(/(\d{3})(\d{1,2})$/,"$1-$2");e.target.value=v;});
+$('ck-cep')?.addEventListener('input',e=>{let v=e.target.value.replace(/\D/g,"").slice(0,8);if(v.length>5)v=v.slice(0,5)+"-"+v.slice(5);e.target.value=v;});
+
+$('checkout-btn').addEventListener('click',()=>{
+  const p=PRODUCTS[state.product];
+  if(!p.ship){ window.open(KIRVANO_PDF_URL,"_blank","noopener"); return; } // PDF
+  if(!state.shipping){ alert("Calcule o frete (informe seu CEP) antes de continuar."); return; }
+  if($('ck-cep') && !$('ck-cep').value) $('ck-cep').value = cepInput.value; // pré-preenche CEP
+  openModal();
+});
+
+$('ck-submit')?.addEventListener('click',async()=>{
+  const msg=$('ck-msg');
+  const payload={
+    product_slug:state.product,
+    shipping:state.shipping,
+    customer:{name:$('ck-name').value,email:$('ck-email').value,phone:$('ck-phone').value.replace(/\D/g,""),cpf:$('ck-cpf').value.replace(/\D/g,"")},
+    address:{cep:$('ck-cep').value.replace(/\D/g,""),street:$('ck-street').value,number:$('ck-number').value,complement:$('ck-comp').value,district:$('ck-district').value,city:$('ck-city').value,state:$('ck-state').value},
+  };
+  if(!payload.customer.name||!payload.customer.email||!payload.address.cep){msg.innerHTML='<span class="text-red-400">Preencha nome, e-mail e endereço.</span>';return;}
+  msg.textContent="Gerando pagamento…";
+  if(!USE_BACKEND){ msg.innerHTML='<span class="text-brand2">Backend desativado (USE_BACKEND=false). Ative as Edge Functions para gerar o pagamento real.</span>'; return; }
+  try{
+    const r=await fetch(`${SUPABASE_URL}/functions/v1/order`,{method:"POST",headers:{"Content-Type":"application/json","Authorization":`Bearer ${SUPABASE_ANON_KEY}`,"apikey":SUPABASE_ANON_KEY},body:JSON.stringify(payload)});
+    const data=await r.json();
+    if(data.payment_url){ window.location.href=data.payment_url; }      // AbacatePay
+    else { msg.innerHTML='<span class="text-red-400">'+(data.error||"Erro ao criar pedido")+'</span>'; }
+  }catch(err){ msg.innerHTML='<span class="text-red-400">Falha de conexão. Tente novamente.</span>'; }
+});
+
+/* Acompanhar pedido (sem login): e-mail + número do pedido */
+$('cli-btn')?.addEventListener('click',async()=>{
+  const email=$('cli-email').value.trim(), order_number=$('cli-order').value.replace(/\D/g,"");const box=$('cli-result');
+  if(!email||!order_number){box.innerHTML=`<p class="text-red-400 text-sm">Informe e-mail e número do pedido.</p>`;return;}
+  box.innerHTML=`<p class="text-white/50 text-sm">Consultando…</p>`;
+  try{
+    let order;
+    if(USE_BACKEND){const r=await fetch(`${SUPABASE_URL}/functions/v1/track`,{method:"POST",headers:{"Content-Type":"application/json","Authorization":`Bearer ${SUPABASE_ANON_KEY}`,"apikey":SUPABASE_ANON_KEY},body:JSON.stringify({email,order_number})});order=(await r.json()).order;}
+    else{await new Promise(r=>setTimeout(r,500));order={number:order_number,status:"shipped",carrier:"Jadlog",tracking_code:"JD123456789BR",created_at:new Date().toISOString()};}
+    if(!order){box.innerHTML=`<p class="text-white/60 text-sm">Pedido não encontrado. Confira o e-mail e o número.</p>`;return;}
+    const steps=[["paid","Pagamento aprovado"],["labeled","Etiqueta gerada"],["shipped","Em transporte"],["delivered","Entregue"]];
+    const order_idx={pending:-1,paid:0,labeled:1,shipped:2,delivered:3,canceled:-1,refunded:-1}[order.status] ?? -1;
+    box.innerHTML=`<div class="glass rounded-xl p-5">
+      <div class="font-display text-lg mb-3">Pedido #${order.number}</div>
+      <div class="space-y-1.5 text-sm">${steps.map((s,i)=>`<div class="flex items-center gap-2 ${i<=order_idx?'text-white':'text-white/35'}">${i<=order_idx?'✓':'○'} ${s[1]}</div>`).join("")}</div>
+      <div class="border-t border-white/10 mt-4 pt-3 text-sm text-white/70">Transportadora: <span class="text-white">${order.carrier||"—"}</span></div>
+      <div class="text-sm text-white/70">Código: ${order.tracking_code?`<span class="text-brand2 font-semibold">${order.tracking_code}</span>`:"<span class='text-white/40'>aguardando</span>"}</div>
+    </div>`;
+  }catch(err){box.innerHTML=`<p class="text-red-400 text-sm">Erro ao consultar. Tente novamente.</p>`;}
+});
+
+/* Accordion */
+document.querySelectorAll('.acc-btn').forEach(btn=>btn.addEventListener('click',()=>{const b=btn.nextElementSibling,i=btn.querySelector('.acc-ico');const open=b.style.maxHeight&&b.style.maxHeight!=='0px';if(open){b.style.maxHeight='0px';i.style.transform='rotate(0)';}else{b.style.maxHeight=b.scrollHeight+'px';i.style.transform='rotate(45deg)';}}));
+
+/* Spotlight */
+const spot=document.querySelector('#produtos .spotlight');
+$('produtos')?.addEventListener('pointermove',e=>{const r=e.currentTarget.getBoundingClientRect();spot.style.setProperty('--mx',(e.clientX-r.left)+'px');spot.style.setProperty('--my',(e.clientY-r.top)+'px');});
+
+$('year').textContent=new Date().getFullYear();
+selectProduct('pdf');
+</script>
+
+<!-- ===================== GSAP cinematográfico ===================== -->
+<script>
+window.addEventListener('load',()=>{
+  if(!window.gsap){return;}
+  gsap.registerPlugin(ScrollTrigger);
+  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){gsap.utils.toArray('[data-anim],[data-stagger]>*').forEach(el=>gsap.set(el,{opacity:1}));return;}
+  gsap.utils.toArray('[data-anim="fade-up"]').forEach(el=>gsap.fromTo(el,{opacity:0,y:36},{opacity:1,y:0,duration:.8,ease:"power3.out",scrollTrigger:{trigger:el,start:"top 88%"}}));
+  gsap.utils.toArray('[data-stagger]').forEach(grid=>gsap.fromTo(grid.children,{opacity:0,y:28},{opacity:1,y:0,duration:.6,ease:"power3.out",stagger:.08,scrollTrigger:{trigger:grid,start:"top 85%"}}));
+});
+</script>
+
+<!-- ===================== CAPA: flutuação + parallax 3D leve ===================== -->
+<script>
+(function(){
+  const stage=document.getElementById('book-stage'), cover=document.getElementById('book-cover');
+  if(!cover) return;
+  const reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let tx=0,ty=0,cx=0,cy=0,t=0;
+  if(!reduce){
+    stage.addEventListener('pointermove',e=>{const r=stage.getBoundingClientRect();tx=((e.clientX-r.left)/r.width*2-1);ty=((e.clientY-r.top)/r.height*2-1);});
+    stage.addEventListener('pointerleave',()=>{tx=0;ty=0;});
+    (function loop(){requestAnimationFrame(loop);t+=0.02;cx+=(tx-cx)*0.06;cy+=(ty-cy)*0.06;
+      const float=Math.sin(t)*8;
+      cover.style.transform=`perspective(1000px) rotateY(${cx*10}deg) rotateX(${-cy*8}deg) translateY(${float}px)`;})();
+  }
+})();
+</script>
+</body>
+</html>

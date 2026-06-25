@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="robots" content="noindex, nofollow" />
+<title>Admin — Escola Segura</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>tailwind.config={theme:{extend:{colors:{ink:'#0a0e1a',ink2:'#0f1626',brand:'#1e90ff',brand2:'#3ba8ff',gold:'#ff7a18'}}}}</script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  body{background:#0a0e1a;font-family:Inter,sans-serif;color:#fff}
+  .glass{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1)}
+  .glass2{background:rgba(15,22,38,.7);border:1px solid rgba(30,144,255,.2)}
+  .inp{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.15);border-radius:10px;padding:.6rem .9rem;outline:none;color:#fff;width:100%}
+  .inp:focus{border-color:#1e90ff}
+  .btn{background:linear-gradient(90deg,#1e90ff,#3ba8ff);border-radius:10px;font-weight:700;transition:.2s}
+  .btn:hover{filter:brightness(1.1)}
+  .btn-g{border:1px solid rgba(255,255,255,.18);border-radius:10px}
+  .btn-g:hover{background:rgba(255,255,255,.06)}
+  .nav-item.active{background:rgba(30,144,255,.15);color:#fff}
+  th{font-weight:600;color:rgba(255,255,255,.5);text-align:left}
+  td,th{padding:.6rem .75rem;border-bottom:1px solid rgba(255,255,255,.06);font-size:.875rem;white-space:nowrap}
+  .badge{font-size:.7rem;padding:.15rem .55rem;border-radius:999px;font-weight:700}
+</style>
+</head>
+<body>
+
+<!-- ===================== LOGIN ===================== -->
+<div id="login" class="min-h-screen flex items-center justify-center p-4">
+  <div class="glass2 rounded-2xl p-8 w-full max-w-sm">
+    <h1 class="text-2xl font-extrabold mb-1">Painel <span class="text-brand">Admin</span></h1>
+    <p class="text-white/50 text-sm mb-6">Escola Segura — acesso restrito</p>
+    <input id="li-email" type="email" placeholder="E-mail" class="inp mb-3" />
+    <input id="li-pass" type="password" placeholder="Senha" class="inp mb-4" />
+    <button id="li-btn" class="btn w-full py-3">Entrar</button>
+    <p id="li-msg" class="text-red-400 text-sm mt-3"></p>
+  </div>
+</div>
+
+<!-- ===================== APP ===================== -->
+<div id="app" class="hidden min-h-screen md:grid md:grid-cols-[230px_1fr]">
+  <!-- Sidebar -->
+  <aside class="glass md:min-h-screen p-4 md:sticky md:top-0">
+    <div class="font-extrabold text-lg mb-6 px-2">ESCOLA <span class="text-brand">SEGURA</span></div>
+    <nav class="flex md:flex-col gap-1 overflow-x-auto" id="nav">
+      <button data-tab="dashboard" class="nav-item active text-left px-3 py-2 rounded-lg text-sm text-white/70">📊 Dashboard</button>
+      <button data-tab="orders" class="nav-item text-left px-3 py-2 rounded-lg text-sm text-white/70">📦 Pedidos</button>
+      <button data-tab="customers" class="nav-item text-left px-3 py-2 rounded-lg text-sm text-white/70">👥 Clientes</button>
+      <button data-tab="billing" class="nav-item text-left px-3 py-2 rounded-lg text-sm text-white/70">💰 Faturamento</button>
+      <button data-tab="products" class="nav-item text-left px-3 py-2 rounded-lg text-sm text-white/70">📚 Produtos</button>
+    </nav>
+    <button id="logout" class="btn-g w-full mt-6 py-2 text-sm">Sair</button>
+    <p id="who" class="text-white/30 text-xs mt-3 px-2"></p>
+  </aside>
+
+  <!-- Conteúdo -->
+  <main class="p-5 md:p-8 max-w-6xl">
+    <!-- Dashboard -->
+    <section data-panel="dashboard">
+      <h2 class="text-2xl font-extrabold mb-6">Dashboard</h2>
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-4" id="kpis"></div>
+      <div class="glass2 rounded-2xl p-5 mt-6"><h3 class="font-semibold mb-3">Pedidos recentes</h3><div id="recent"></div></div>
+    </section>
+
+    <!-- Pedidos -->
+    <section data-panel="orders" class="hidden">
+      <div class="flex flex-wrap items-center justify-between gap-3 mb-5">
+        <h2 class="text-2xl font-extrabold">Pedidos</h2>
+        <div class="flex gap-2">
+          <input id="ord-search" placeholder="Buscar nº, nome, e-mail…" class="inp w-56" />
+          <select id="ord-filter" class="inp w-40"><option value="">Todos status</option><option value="pending">Pendente</option><option value="paid">Pago</option><option value="labeled">Etiqueta gerada</option><option value="shipped">Enviado</option><option value="delivered">Entregue</option></select>
+          <button id="ord-csv" class="btn-g px-4 py-2 text-sm">Exportar CSV</button>
+        </div>
+      </div>
+      <div class="glass2 rounded-2xl p-2 overflow-x-auto"><table class="w-full"><thead><tr><th>#</th><th>Nome</th><th>E-mail</th><th>Produto</th><th>Total</th><th>Status</th><th>Transp.</th><th>Rastreio</th><th>Ações</th></tr></thead><tbody id="ord-body"></tbody></table></div>
+    </section>
+
+    <!-- Clientes -->
+    <section data-panel="customers" class="hidden">
+      <div class="flex flex-wrap items-center justify-between gap-3 mb-5"><h2 class="text-2xl font-extrabold">Clientes</h2><div class="flex gap-2"><input id="cust-search" placeholder="Buscar…" class="inp w-56" /><button id="cust-csv" class="btn-g px-4 py-2 text-sm">Exportar CSV</button></div></div>
+      <div class="glass2 rounded-2xl p-2 overflow-x-auto"><table class="w-full"><thead><tr><th>Nome</th><th>E-mail</th><th>WhatsApp</th><th>CPF</th><th>Desde</th></tr></thead><tbody id="cust-body"></tbody></table></div>
+    </section>
+
+    <!-- Faturamento -->
+    <section data-panel="billing" class="hidden">
+      <h2 class="text-2xl font-extrabold mb-6">Faturamento</h2>
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-4" id="bill-kpis"></div>
+      <div class="glass2 rounded-2xl p-5 mt-6"><h3 class="font-semibold mb-3">Por produto (pagos)</h3><div id="bill-prod"></div></div>
+    </section>
+
+    <!-- Produtos -->
+    <section data-panel="products" class="hidden">
+      <h2 class="text-2xl font-extrabold mb-6">Produtos</h2>
+      <div class="glass2 rounded-2xl p-2 overflow-x-auto"><table class="w-full"><thead><tr><th>Produto</th><th>Tipo</th><th>Preço</th><th>Frete</th><th>Ativo</th></tr></thead><tbody id="prod-body"></tbody></table></div>
+    </section>
+  </main>
+</div>
+
+<script type="module">
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
+
+// >>> CONFIG — projeto "Livro" <<<
+const SUPABASE_URL = "https://upgawiqxgfvxfjlolqvk.supabase.co";
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVwZ2F3aXF4Z2Z2eGZqbG9scXZrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE1ODgzMDEsImV4cCI6MjA5NzE2NDMwMX0.q0KmVGlQTifmbLKB7gtp2RZ6AUB563OogoKlVaWoUNI";
+const sb = createClient(SUPABASE_URL, SUPABASE_ANON_KEY, { db:{ schema:"escola_segura" } });
+
+const $ = s => document.querySelector(s);
+const brl = c => "R$ " + (c/100).toFixed(2).replace(".",",");
+const STATUS = {pending:["Pendente","bg-white/10 text-white/70"],paid:["Pago","bg-blue-500/20 text-brand2"],labeled:["Etiqueta","bg-amber-500/20 text-amber-300"],shipped:["Enviado","bg-indigo-500/20 text-indigo-300"],delivered:["Entregue","bg-green-500/20 text-green-300"],canceled:["Cancelado","bg-red-500/20 text-red-300"],refunded:["Reembolso","bg-red-500/20 text-red-300"]};
+let ORDERS = [], CUSTOMERS = [], PMAP = {};
+
+// ---------- Auth ----------
+async function boot(){
+  const { data:{ session } } = await sb.auth.getSession();
+  if (session) await enter(session);
+}
+$("#li-btn").onclick = async () => {
+  $("#li-msg").textContent = "";
+  const { data, error } = await sb.auth.signInWithPassword({ email:$("#li-email").value, password:$("#li-pass").value });
+  if (error) { $("#li-msg").textContent = "Login inválido."; return; }
+  await enter(data.session);
+};
+$("#logout").onclick = async () => { await sb.auth.signOut(); location.reload(); };
+
+async function enter(session){
+  // confirma que é admin (a função is_admin via RLS já barra dados; aqui validamos a UI)
+  const { data: adm } = await sb.from("admins").select("user_id").maybeSingle();
+  if (!adm) { $("#li-msg").textContent = "Sem permissão de administrador."; await sb.auth.signOut(); return; }
+  $("#login").classList.add("hidden"); $("#app").classList.remove("hidden");
+  $("#who").textContent = session.user.email;
+  await loadAll();
+}
+
+// ---------- Navegação ----------
+document.querySelectorAll(".nav-item").forEach(b=>b.onclick=()=>{
+  document.querySelectorAll(".nav-item").forEach(x=>x.classList.remove("active"));
+  b.classList.add("active");
+  document.querySelectorAll("[data-panel]").forEach(p=>p.classList.toggle("hidden",p.dataset.panel!==b.dataset.tab));
+});
+
+// ---------- Dados ----------
+async function loadAll(){
+  const [{data:orders},{data:customers},{data:products}] = await Promise.all([
+    sb.from("orders").select("*").order("created_at",{ascending:false}),
+    sb.from("customers").select("*").order("created_at",{ascending:false}),
+    sb.from("products").select("*").order("price_cents"),
+  ]);
+  // mapa cliente
+  const cmap = Object.fromEntries((customers||[]).map(c=>[c.id,c]));
+  PMAP = Object.fromEntries((products||[]).map(p=>[p.id,p]));
+  ORDERS = (orders||[]).map(o=>({...o, cust:cmap[o.customer_id]||{}}));
+  CUSTOMERS = customers||[];
+  renderDashboard(); renderOrders(); renderCustomers(); renderBilling(); renderProducts(products||[]);
+}
+
+function pname(o){ const p=PMAP[o.product_id]; return ({pdf:"PDF",fisico:"Físico",combo:"Combo"})[p?.type] || p?.name || "—"; }
+
+// ---------- Dashboard ----------
+function renderDashboard(){
+  const paid = ORDERS.filter(o=>["paid","labeled","shipped","delivered"].includes(o.status));
+  const rev = paid.reduce((s,o)=>s+o.total_cents,0);
+  const kpis = [["Pedidos",ORDERS.length],["Pagos",paid.length],["Faturamento",brl(rev)],["Clientes",CUSTOMERS.length]];
+  $("#kpis").innerHTML = kpis.map(k=>`<div class="glass2 rounded-2xl p-5"><div class="text-white/50 text-xs">${k[0]}</div><div class="text-2xl font-extrabold mt-1">${k[1]}</div></div>`).join("");
+  $("#recent").innerHTML = tableMini(ORDERS.slice(0,6));
+}
+function tableMini(rows){ if(!rows.length) return `<p class="text-white/40 text-sm">Sem pedidos.</p>`;
+  return `<table class="w-full"><thead><tr><th>#</th><th>Nome</th><th>Total</th><th>Status</th></tr></thead><tbody>${rows.map(o=>`<tr><td>#${o.number}</td><td>${o.cust.name||"—"}</td><td>${brl(o.total_cents)}</td><td>${badge(o.status)}</td></tr>`).join("")}</tbody></table>`; }
+function badge(s){ const t=STATUS[s]||[s,"bg-white/10"]; return `<span class="badge ${t[1]}">${t[0]}</span>`; }
+
+// ---------- Pedidos ----------
+function filteredOrders(){
+  const q=($("#ord-search").value||"").toLowerCase(), f=$("#ord-filter").value;
+  return ORDERS.filter(o=>(!f||o.status===f) && (!q || (`${o.number} ${o.cust.name||""} ${o.cust.email||""}`).toLowerCase().includes(q)));
+}
+function renderOrders(){
+  $("#ord-body").innerHTML = filteredOrders().map(o=>`<tr>
+    <td>#${o.number}</td><td>${o.cust.name||"—"}</td><td>${o.cust.email||"—"}</td>
+    <td>${pname(o)}</td><td>${brl(o.total_cents)}</td>
+    <td>${badge(o.status)}</td><td>${o.shipping_carrier||"—"}</td><td>${o.tracking_code||"—"}</td>
+    <td><div class="flex gap-1">
+      <select data-st="${o.id}" class="inp !py-1 !px-2 text-xs w-28">${Object.keys(STATUS).map(s=>`<option value="${s}" ${s===o.status?"selected":""}>${STATUS[s][0]}</option>`).join("")}</select>
+      <button data-label="${o.id}" class="btn-g px-2 py-1 text-xs" title="Gerar etiqueta">🏷️</button>
+      <button data-mail="${o.id}" class="btn-g px-2 py-1 text-xs" title="Reenviar e-mail">✉️</button>
+    </div></td></tr>`).join("") || `<tr><td colspan="9" class="text-white/40">Nenhum pedido.</td></tr>`;
+  // ações
+  document.querySelectorAll("[data-st]").forEach(sel=>sel.onchange=()=>adminOp("set_status",sel.dataset.st,{status:sel.value}));
+  document.querySelectorAll("[data-label]").forEach(b=>b.onclick=()=>adminOp("generate_label",b.dataset.label));
+  document.querySelectorAll("[data-mail]").forEach(b=>b.onclick=()=>{
+    const tpl=prompt("Template: payment_approved | label_created | shipped | delivered","shipped");
+    if(tpl) adminOp("resend_email",b.dataset.mail,{template:tpl});
+  });
+}
+$("#ord-search").oninput = renderOrders;
+$("#ord-filter").onchange = renderOrders;
+$("#ord-csv").onclick = ()=>exportCSV("pedidos", filteredOrders().map(o=>({numero:o.number,nome:o.cust.name,email:o.cust.email,produto:pname(o),total:(o.total_cents/100).toFixed(2),status:o.status,transportadora:o.shipping_carrier,rastreio:o.tracking_code})));
+
+async function adminOp(action, order_id, extra={}){
+  const { data:{ session } } = await sb.auth.getSession();
+  const r = await fetch(`${SUPABASE_URL}/functions/v1/admin-ops`,{method:"POST",
+    headers:{"Content-Type":"application/json","Authorization":`Bearer ${session.access_token}`,"apikey":SUPABASE_ANON_KEY},
+    body:JSON.stringify({action,order_id,...extra})});
+  const d = await r.json();
+  if(d.ok) { await loadAll(); }
+  else alert(d.error || d.todo || "Ação não concluída");
+}
+
+// ---------- Clientes ----------
+function renderCustomers(){
+  const q=($("#cust-search").value||"").toLowerCase();
+  const rows=CUSTOMERS.filter(c=>!q||(`${c.name} ${c.email} ${c.phone||""}`).toLowerCase().includes(q));
+  $("#cust-body").innerHTML = rows.map(c=>`<tr><td>${c.name}</td><td>${c.email}</td><td>${c.phone||"—"}</td><td>${c.cpf||"—"}</td><td>${new Date(c.created_at).toLocaleDateString("pt-BR")}</td></tr>`).join("") || `<tr><td colspan="5" class="text-white/40">Nenhum cliente.</td></tr>`;
+}
+$("#cust-search").oninput = renderCustomers;
+$("#cust-csv").onclick = ()=>exportCSV("clientes", CUSTOMERS.map(c=>({nome:c.name,email:c.email,whatsapp:c.phone,cpf:c.cpf})));
+
+// ---------- Faturamento ----------
+function renderBilling(){
+  const paid = ORDERS.filter(o=>["paid","labeled","shipped","delivered"].includes(o.status));
+  const rev = paid.reduce((s,o)=>s+o.total_cents,0);
+  const ship = paid.reduce((s,o)=>s+(o.shipping_cents||0),0);
+  const ticket = paid.length? rev/paid.length : 0;
+  const k=[["Receita total",brl(rev)],["Pedidos pagos",paid.length],["Ticket médio",brl(ticket)],["Frete arrecadado",brl(ship)]];
+  $("#bill-kpis").innerHTML = k.map(x=>`<div class="glass2 rounded-2xl p-5"><div class="text-white/50 text-xs">${x[0]}</div><div class="text-2xl font-extrabold mt-1">${x[1]}</div></div>`).join("");
+  const byType={}; paid.forEach(o=>{const t=pname(o);byType[t]=(byType[t]||0)+o.total_cents;});
+  $("#bill-prod").innerHTML = Object.keys(byType).length? `<table class="w-full"><tbody>${Object.entries(byType).map(([t,v])=>`<tr><td>${t}</td><td class="text-right">${brl(v)}</td></tr>`).join("")}</tbody></table>` : `<p class="text-white/40 text-sm">Sem vendas pagas.</p>`;
+}
+
+// ---------- Produtos ----------
+function renderProducts(products){
+  $("#prod-body").innerHTML = products.map(p=>`<tr><td>${p.name}</td><td>${p.type}</td><td>${brl(p.price_cents)}</td><td>${p.requires_shipping?"sim":"não"}</td><td>${p.active?"✅":"—"}</td></tr>`).join("");
+}
+
+// ---------- CSV ----------
+function exportCSV(name, rows){
+  if(!rows.length) return alert("Nada para exportar.");
+  const head=Object.keys(rows[0]); const esc=v=>`"${String(v??"").replace(/"/g,'""')}"`;
+  const csv=[head.join(","),...rows.map(r=>head.map(h=>esc(r[h])).join(","))].join("\n");
+  const a=document.createElement("a"); a.href=URL.createObjectURL(new Blob(["﻿"+csv],{type:"text/csv"})); a.download=`${name}-${new Date().toISOString().slice(0,10)}.csv`; a.click();
+}
+
+boot();
+</script>
+</body>
+</html>
